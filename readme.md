@@ -1,35 +1,24 @@
-param(
-    [Parameter(Mandatory=$true)]
-    [string]$token,
-    [Parameter(Mandatory=$false)]
-    [string]$version = "1.0.1"
-)
+# SUPRDESKTOP Updates
 
-try {
-    Write-Host "Setting up environment..."
-    $env:GH_TOKEN = $token
+This repository hosts the updates for the SUPRDESKTOP application.
 
-    # Verify repository exists and is accessible
-    $repoUrl = "https://api.github.com/repos/SuprSketch-Corp/SuprSketch.exe-Updates"
-    $headers = @{
-        "Authorization" = "Bearer $token"
-        "Accept" = "application/vnd.github.v3+json"
-    }
-    
-    Write-Host "Verifying repository access..."
-    $response = Invoke-RestMethod -Uri $repoUrl -Headers $headers -Method Get -ErrorAction Stop
-    
-    Write-Host "Creating git tag..."
-    git tag "v$version" -f
-    git push origin "v$version" -f
-    
-    Write-Host "Building and publishing update..."
-    npm run publish-update
-    
-    Write-Host "Update published successfully!"
-} catch {
-    Write-Host "Error occurred: $_" -ForegroundColor Red
-} finally {
-    Write-Host "Cleaning up..."
-    Remove-Item Env:\GH_TOKEN -ErrorAction SilentlyContinue
-}
+## Version History
+
+### v1.0.1
+- Initial release with auto-update capability
+- Real-time wallpaper synchronization
+- Artist feed following
+- Dark/Light theme support
+- Automatic startup option
+- Session persistence
+- Secure token storage
+
+## Security
+- All releases are digitally signed
+- Updates are verified before installation
+- Secure communication with SuprSketch servers
+
+## Support
+For support, please visit [https://www.suprsketch.com/support](https://www.suprsketch.com/support)
+
+Copyright © 2024 SuprSketch Corp. All rights reserved.
